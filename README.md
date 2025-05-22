@@ -1,7 +1,7 @@
-# Projet Boulange
+# Projet NassTech
 
 ## Description
-Le projet Boulange est une application web conçue pour la gestion d'une entreprise de vente d'ordinateurs. Elle offre des fonctionnalités pour la gestion des commandes, la gestion des stocks, et la présentation des produits disponibles.
+Le projet NassTech est une application web conçue pour la gestion d'une entreprise de vente d'ordinateurs. Elle offre des fonctionnalités pour la gestion des commandes, la gestion des stocks, et la présentation des produits disponibles.
 
 ## Fonctionnalités
 - Gestion des achats des clients
