@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique d'ordinateurs accessibles</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
+</head>
+<body>
+	<header class="bg-primary text-white text-center py-5">
+	    <h1>NassTech</h1>
+		<p class="lead">La technologie entre vos mains : performance, fiabilité et accessibilité pour tous.</p>
+	</header>
+    <section th:insert="~{navigation::barre-navigation}"></section>
+
+    <div class="container my-5">
+        <h2 th:text="${titre}" class="text-center text-primary mb-4"></h2>
+
+        <section layout:fragment="content"></section>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <h6>Copyright - Tous droits réservés</h6>
+        <p>
+            <a href="index.php?action=mentions-legales" class="text-white">Mentions légales</a> | 
+            <a href="index.php?action=cookies" class="text-white">Cookies</a> | 
+            <a href="index.php?action=donnees-personnelles" class="text-white">Données personnelles</a>
+        </p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

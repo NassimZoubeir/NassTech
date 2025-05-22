@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+<head>
+	  <title>Panier</title>
+</head>	  
+<body>
+    <div layout:fragment="content" class="container my-5">
+        <h1 class="text-center">Panier</h1>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover shadow-sm">
+                <thead class="table-primary text-center">
+                    <tr>
+                        <th>Id</th>
+                        <th>Image</th>
+                        <th>Dénomination</th>
+                        <th>Marque</th>
+                        <th>Prix (€)</th>
+                        <th>Processeur</th>
+                        <th>Écran (pouces)</th>
+                        <th>Nombre d'ordinateurs restant</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="ordinateur : ${ordinateurAcheterList}" class="align-middle">
+                        <td th:text="${ordinateur.id}" class="text-center"></td>
+                        <td class="text-center">
+                            <img width="80" class="img-thumbnail" th:src="'/images/' + ${ordinateur.image}" alt="Image ordinateur">
+                        </td>
+                        <td th:text="${ordinateur.denomination}"></td>
+                        <td th:text="${ordinateur.marque.nom}"></td>
+                        <td th:text="${ordinateur.prix}"></td>
+                        <td th:text="${ordinateur.processeur}"></td>
+                        <td th:text="${ordinateur.ecran}"></td>
+                        <td th:text="${ordinateur.nombreOrdinateur}" class="text-center"></td>
+                        <td class="text-center">
+                            <a th:href="'/afficher-ordinateur/' + ${ordinateur.id}" class="btn btn-info btn-sm">Détail</a>
+                        </td>
+                        <td class="text-center">
+                            <a th:href="'/supprimer-panier/' + ${ordinateur.id}" class="btn btn-danger btn-sm">Supprimer du panier</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="/valider-panier" class="btn btn-success btn-lg">Valider le panier</a>
+        </div>
+    </div>
+</body>
+</html>
