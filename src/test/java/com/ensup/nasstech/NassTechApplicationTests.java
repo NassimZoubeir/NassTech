@@ -1,10 +1,10 @@
-package com.example.boulange;
+package com.ensup.nasstech;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BoulangeApplicationTests {
+class NassTechApplicationTests {
 
 	@Test
 	void contextLoads() {
