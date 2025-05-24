@@ -48,7 +48,7 @@
         </div>
 
         <div class="text-center mt-4">
-            <a href="/valider-panier" class="btn btn-success btn-lg">Valider le panier</a>
+            <a th:if="${session.role != null}" href="/valider-panier" class="btn btn-success btn-lg">Valider le panier</a>
         </div>
     </div>
 </body>

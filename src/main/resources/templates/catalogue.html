@@ -27,7 +27,7 @@
                 </div>
                 <div class="card-footer text-muted">
                     <a th:href="'/afficher-ordinateur/' + ${ordinateur.id}" class="btn btn-primary">Détail</a>
-                    <a th:if="${session.role != null}" th:href="'/acheter/' + ${ordinateur.id}" class="btn btn-danger">Ajouter au panier</a>
+                    <a th:href="'/acheter/' + ${ordinateur.id}" class="btn btn-danger">Ajouter au panier</a>
                 </div>
             </div>
         </div>
