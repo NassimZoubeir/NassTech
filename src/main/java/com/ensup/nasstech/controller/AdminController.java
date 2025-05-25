@@ -15,6 +15,7 @@ import com.ensup.nasstech.entity.Ordinateur;
 import com.ensup.nasstech.repository.MarqueRepository;
 import com.ensup.nasstech.repository.OrdinateurRepository;
 import com.ensup.nasstech.repository.UtilisateurRepository;
+import com.ensup.nasstech.repository.VerificationTokenRepository;
 
 
 @Controller
@@ -25,6 +26,9 @@ public class AdminController {
 	 
 	 @Autowired
 	 private OrdinateurRepository ordinateurRepository;
+	 
+	 @Autowired
+	 private VerificationTokenRepository verificationTokenRepository;
 	 
 	 @Autowired
 	 private MarqueRepository marqueRepository;

@@ -133,7 +133,7 @@ public class NassTechApplication {
 		utilisateur.acheterOrdinateur(achat);
 		utilisateurRepository.save(utilisateur);
 		
-	//	 emailService.sendSimpleMessage("zoubeirnassim@gmail.com", "Email Test Boulange", "Bonjour Nassim ce mail vient de ton application Boulange");
+	//	 emailService.sendSimpleMessage("zoubeirnassim@gmail.com", "Email Test NassTech", "Bonjour Nassim ce mail vient de ton application NassTech");
 	}
 	
 }

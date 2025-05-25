@@ -16,6 +16,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/afficher-ordinateurs">Catalogue</a>
                     </li>
+					<li class="nav-item" th:if="${session.id != null}">
+					    <a class="nav-link" href="/profil">Profil</a>
+					</li>
                     <li class="nav-item">
                         <a class="nav-link" href="/afficher-panier">Panier</a>
                     </li>

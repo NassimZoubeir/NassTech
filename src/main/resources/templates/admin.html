@@ -36,7 +36,7 @@
                             <td th:text="${utilisateur.email}"></td>
                             <td th:text="${utilisateur.role}"></td>
                             <td>
-                                <form th:action="@{/admin/supprimerUtilisateur/{id}(id=${utilisateur.id})}" method="post">
+                                <form th:action="@{/admin/supprimerUtilisateur/{id}(id=${utilisateur.id})}" method="post"  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
                                     <button type="submit" class="btn btn-danger">Supprimer</button>
                                 </form>
                             </td>
@@ -77,7 +77,7 @@
                             <td th:text="${ordinateur.vive} + ' Go'"></td>
                             <td th:text="${ordinateur.nombreOrdinateur}"></td>
                             <td>
-                                <form th:action="@{/admin/supprimerOrdinateur/{id}(id=${ordinateur.id})}" method="post">
+                                <form th:action="@{/admin/supprimerOrdinateur/{id}(id=${ordinateur.id})}" method="post"  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet ordinateur ?');">
                                     <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                                 </form>
 								<form th:action="@{/admin/mettreAJourStock/{id}(id=${ordinateur.id})}" method="post">
@@ -120,7 +120,7 @@
                             <td th:text="${marque.id}"></td>
                             <td th:text="${marque.nom}"></td>
                             <td>
-                                <form th:action="@{/admin/supprimerMarque/{id}(id=${marque.id})}" method="post">
+                                <form th:action="@{/admin/supprimerMarque/{id}(id=${marque.id})}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette marque ?');">
                                     <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                                 </form>
                             </td>
