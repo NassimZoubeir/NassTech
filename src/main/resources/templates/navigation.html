@@ -9,7 +9,20 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+				<ul class="navbar-nav ms-auto">
+				    <li class="nav-item">
+				        <form class="d-flex me-3" action="/recherche" method="get" role="search">
+							<input class="form-control me-2 text-white border-secondary"
+							       style="background-color: #495057;"
+							       type="search"
+							       name="query"
+							       placeholder="Rechercher un ordinateur..."
+							       aria-label="Search">
+
+				            <button class="btn btn-outline-light" type="submit">🔍</button>
+				        </form>
+				    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="/accueil">Accueil</a>
                     </li>

@@ -43,5 +43,10 @@ public class OrdinateurService implements OrdinateurServiceItf {
 	public void incrementernombreOrdinateur(Long id) {
 		ordinateurRepository.incrementernombreOrdinateur(id);
 	}
+	@Override
+	public List<Ordinateur> rechercherOrdinateurs(String keyword) {
+	    return ordinateurRepository.searchOrdinateurs(keyword);
+	}
+
 	
 }

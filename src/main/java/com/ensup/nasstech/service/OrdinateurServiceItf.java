@@ -12,4 +12,6 @@ public interface OrdinateurServiceItf {
 	List<Ordinateur> getOrdinateurAcheterListParOrdinateurIdList(List<Long> ordinateurAcheterListId);
 	void incrementernombreOrdinateur(Long id);
 	void decrementernombreOrdinateur(Long id);
+	List<Ordinateur> rechercherOrdinateurs(String keyword);
+
 }

@@ -1,6 +1,5 @@
 package com.ensup.nasstech.entity;
 
-import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

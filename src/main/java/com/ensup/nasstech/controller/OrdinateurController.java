@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ensup.nasstech.entity.Marque;
@@ -32,7 +34,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class OrdinateurController {
 	@Autowired
 	private  OrdinateurServiceItf  ordinateurService;
-	
+	 
 	@Autowired
     private MarqueRepository marqueRepository;
 	
@@ -154,5 +156,12 @@ public class OrdinateurController {
 		    	request.getSession().setAttribute("ordinateurAcheterListId", ordinateurAcheterListId);
 		    	System.out.println("ordinateurAcheterListId=" + ordinateurAcheterListId);
 		    	return "redirect:/afficher-panier";
+		    }
+		  @GetMapping("/recherche")
+		    public String rechercherOrdinateurs(@RequestParam("query") String query, Model model) {
+		        List<Ordinateur> resultats = ordinateurService.rechercherOrdinateurs(query);
+		        model.addAttribute("ordinateurList", resultats);
+		        model.addAttribute("query", query);
+		        return "catalogue";
 		    }
 }
