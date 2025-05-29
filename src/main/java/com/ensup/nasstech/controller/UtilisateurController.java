@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ensup.nasstech.entity.Ordinateur;
 import com.ensup.nasstech.entity.Utilisateur;
@@ -114,13 +115,12 @@ public  class  UtilisateurController  {
 	        @RequestParam(required = false) String ancienMdp,
 	        @RequestParam(required = false) String nouveauMdp,
 	        @RequestParam(required = false) String confirmationMdp,
-	        Model model
+	        RedirectAttributes redirectAttributes
 	) {
 	    Long id = (Long) request.getSession().getAttribute("id");
 	    if (id == null) return "redirect:/login";
 
 	    Utilisateur utilisateur = utilisateurService.lireUtilisateurParId(id);
-
 	    utilisateur.setLogin(login);
 	    utilisateur.setEmail(email);
 
@@ -128,29 +128,25 @@ public  class  UtilisateurController  {
 	        try {
 	            String ancienHash = Outil.hashMdpSha256(ancienMdp);
 	            if (!utilisateur.getPasswdHash().equals(ancienHash)) {
-	                model.addAttribute("utilisateur", utilisateur);
-	                model.addAttribute("erreur", "Ancien mot de passe incorrect.");
-	                return "profil";
+	                redirectAttributes.addFlashAttribute("erreur", "Ancien mot de passe incorrect.");
+	                return "redirect:/profil";
 	            }
 	            if (!nouveauMdp.equals(confirmationMdp)) {
-	                model.addAttribute("utilisateur", utilisateur);
-	                model.addAttribute("erreur", "Les mots de passe ne correspondent pas.");
-	                return "profil";
+	                redirectAttributes.addFlashAttribute("erreur", "Les mots de passe ne correspondent pas.");
+	                return "redirect:/profil";
 	            }
-
 	            String nouveauHash = Outil.hashMdpSha256(nouveauMdp);
 	            utilisateur.setPasswdHash(nouveauHash);
 	        } catch (Exception e) {
-	            model.addAttribute("utilisateur", utilisateur);
-	            model.addAttribute("erreur", "Erreur technique.");
-	            return "profil";
+	            redirectAttributes.addFlashAttribute("erreur", "Erreur technique.");
+	            return "redirect:/profil";
 	        }
 	    }
 
-	    utilisateurService.creerUtilisateur(utilisateur); // utilise le save existant
-	    model.addAttribute("utilisateur", utilisateur);
-	    model.addAttribute("success", "Profil mis à jour avec succès.");
-	    return "profil";
+	    utilisateurService.creerUtilisateur(utilisateur); // update
+	    redirectAttributes.addFlashAttribute("success", "Profil mis à jour avec succès.");
+	    return "redirect:/profil";
 	}
+
 
 }

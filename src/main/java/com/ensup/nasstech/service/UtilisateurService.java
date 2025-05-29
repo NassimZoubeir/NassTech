@@ -42,10 +42,17 @@ public  class UtilisateurService implements UtilisateurServiceItf {
 	public void creerUtilisateur(Utilisateur utilisateur) {
 		utilisateurRepository.save(utilisateur);	
 		
-		 // Génération du jeton
-	    String token = UUID.randomUUID().toString();
-	    VerificationToken verificationToken = new VerificationToken(token, utilisateur);
-	    verificationTokenRepository.save(verificationToken); // Utiliser l'instance injectée
+		// Supprimer l'ancien token si existant
+		VerificationToken existingToken = verificationTokenRepository.findByUtilisateur(utilisateur);
+		if (existingToken != null) {
+		    verificationTokenRepository.delete(existingToken);
+		}
+
+		// Générer un nouveau jeton
+		String token = UUID.randomUUID().toString();
+		VerificationToken verificationToken = new VerificationToken(token, utilisateur);
+		verificationTokenRepository.save(verificationToken);
+
 
 	    // Envoi de l'email
 	    String verificationUrl = "http://localhost:8080/verifier-email?token=" + token;
