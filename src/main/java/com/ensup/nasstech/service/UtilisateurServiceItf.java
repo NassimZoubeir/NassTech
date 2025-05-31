@@ -3,7 +3,6 @@ package com.ensup.nasstech.service;
 import java.util.List;
 
 import com.ensup.nasstech.entity.Achat;
-import com.ensup.nasstech.entity.Ordinateur;
 import com.ensup.nasstech.entity.Utilisateur;
 
 public interface UtilisateurServiceItf {
