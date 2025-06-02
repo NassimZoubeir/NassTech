@@ -1,7 +1,6 @@
 package com.ensup.nasstech.controller;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ensup.nasstech.entity.Ordinateur;
 import com.ensup.nasstech.entity.Utilisateur;
 import com.ensup.nasstech.outil.Outil;
 import com.ensup.nasstech.service.UtilisateurServiceItf;
@@ -45,8 +43,8 @@ public  class  UtilisateurController  {
 	}
 	
 	@RequestMapping("/creer-compte-validation")
-	public  String  creerUtilisateurValidation(String  login,  String  password,  String  mail)  {
-		System.out.println(login  +  ",  "  +  password  +  ",  "  +  mail);
+	public  String  creerUtilisateurValidation(String  login,  String  password,  String  mail, String adresse)  {
+		System.out.println(login  +  ",  "  +  password  +  ",  "  +  mail + ", " + adresse);
 		String  hashPassword  =  null;
 		try  {
 			hashPassword  =  Outil.hashMdpSha256(password);
@@ -54,7 +52,7 @@ public  class  UtilisateurController  {
 			System.out.println("ERREUR  -  fonction  hashMdpSha256");
 		}
 		
-		Utilisateur  utilisateur  =  new  Utilisateur(login,  hashPassword,  mail,  "abonne");
+		Utilisateur  utilisateur  =  new  Utilisateur(login,  hashPassword,  mail,  "abonne", adresse);
 		utilisateurService.creerUtilisateur(utilisateur);
 		return  "login";
 	}
@@ -98,12 +96,12 @@ public  class  UtilisateurController  {
 	public String afficherProfil(HttpServletRequest request, Model model) {
 	    Long idUtilisateur = (Long) request.getSession().getAttribute("id");
 	    if (idUtilisateur == null) {
-	        return "redirect:/login";  // pas connecté => retour à la page login
+	        return "redirect:/login";
 	    }
 
 	    Utilisateur utilisateur = utilisateurService.lireUtilisateurParId(idUtilisateur);
 	    model.addAttribute("utilisateur", utilisateur);
-	    return "profil";  // nom de la page Thymeleaf profil.html
+	    return "profil"; 
 	}
 
 
@@ -112,6 +110,7 @@ public  class  UtilisateurController  {
 	        HttpServletRequest request,
 	        @RequestParam String login,
 	        @RequestParam String email,
+	        @RequestParam String adresse,
 	        @RequestParam(required = false) String ancienMdp,
 	        @RequestParam(required = false) String nouveauMdp,
 	        @RequestParam(required = false) String confirmationMdp,
@@ -123,6 +122,7 @@ public  class  UtilisateurController  {
 	    Utilisateur utilisateur = utilisateurService.lireUtilisateurParId(id);
 	    utilisateur.setLogin(login);
 	    utilisateur.setEmail(email);
+	    utilisateur.setAdresse(adresse);
 
 	    if (ancienMdp != null && !ancienMdp.isBlank()) {
 	        try {
@@ -143,7 +143,7 @@ public  class  UtilisateurController  {
 	        }
 	    }
 
-	    utilisateurService.creerUtilisateur(utilisateur); // update
+	    utilisateurService.creerUtilisateur(utilisateur);
 	    redirectAttributes.addFlashAttribute("success", "Profil mis à jour avec succès.");
 	    return "redirect:/profil";
 	}

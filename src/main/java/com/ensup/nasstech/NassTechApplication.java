@@ -116,14 +116,14 @@ public class NassTechApplication {
 		Utilisateur utilisateur = null;
 		try {
 			hashPassword = Outil.hashMdpSha256("nass");
-			utilisateur = new Utilisateur("nass", hashPassword, "nass@gmail.com", "abonne");
+			utilisateur = new Utilisateur("nass", hashPassword, "nass@gmail.com", "abonne", "18 Avenue du Prado, 13008 Marseille");
 			utilisateurRepository.save(utilisateur);
 		} catch (NoSuchAlgorithmException e) {
 			System.out.println("Impossible de créer l'utilisateur nass");
 		}
 		 try {
 			 hashPassword = Outil.hashMdpSha256("admin");
-			 utilisateur = new Utilisateur("admin", hashPassword, "admin@gmail.com", "administrateur");
+			 utilisateur = new Utilisateur("admin", hashPassword, "admin@gmail.com", "administrateur", "1 rue de la République, 13002 Marseille");
 			 utilisateurRepository.save(utilisateur);
 		} catch (NoSuchAlgorithmException e) {
 			 System.out.println("Impossible de créer l'utilisateur admin");

@@ -18,17 +18,19 @@ public class Utilisateur {
 	private String passwdHash;
 	private String email;
 	private String role;
+	private String adresse;
 	@OneToMany
 	private List<Achat> acheterOrdinateurList;
 	
 	private boolean verified = false;
 	
 	public Utilisateur() {}
-	public Utilisateur(String login, String passwdHash, String email, String role) {
+	public Utilisateur(String login, String passwdHash, String email, String role, String adresse) {
 		this.login = login;
 		this.passwdHash = passwdHash;
 		this.email = email;
 		this.role = role;
+		this.adresse = adresse;
 		acheterOrdinateurList = new ArrayList<Achat>();
 	}
 	@Override
@@ -67,6 +69,13 @@ public class Utilisateur {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public String getAdresse() {
+	    return adresse;
+	}
+
+	public void setAdresse(String adresse) {
+	    this.adresse = adresse;
 	}
 	public boolean isVerified() {
         return verified;

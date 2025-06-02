@@ -26,7 +26,7 @@
                     <li class="nav-item" th:if="${session.id != null}">
                         <a class="nav-link" href="/afficher-achat">Achat</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:if="${session.id == null}">
                         <a class="nav-link" href="/creer-compte">Créer un compte</a>
                     </li>
                     <li class="nav-item" th:if="${session.role == 'administrateur'}">
