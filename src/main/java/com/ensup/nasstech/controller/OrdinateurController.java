@@ -127,7 +127,6 @@ public class OrdinateurController {
 		    	
 		    	if(!ordinateurCommanderListId.contains(id)) {
 		    		ordinateurCommanderListId.add(id);
-		    		ordinateurService.decrementernombreOrdinateur(id);
 		    	}
 		    	request.getSession().setAttribute("ordinateurCommanderListId", ordinateurCommanderListId);
 		    	System.out.println("ordinateurCommanderListId=" + ordinateurCommanderListId);

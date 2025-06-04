@@ -20,7 +20,6 @@
                         <th>Prix (€)</th>
                         <th>Processeur</th>
                         <th>Écran (pouces)</th>
-                        <th>Nombre d'ordinateurs restant</th>
                         <th colspan="2">Actions</th>
                     </tr>
                 </thead>
@@ -35,7 +34,6 @@
                         <td th:text="${ordinateur.prix}"></td>
                         <td th:text="${ordinateur.processeur}"></td>
                         <td th:text="${ordinateur.ecran}"></td>
-                        <td th:text="${ordinateur.nombreOrdinateur}" class="text-center"></td>
                         <td class="text-center">
                             <a th:href="'/afficher-ordinateur/' + ${ordinateur.id}" class="btn btn-info btn-sm">Détail</a>
                         </td>

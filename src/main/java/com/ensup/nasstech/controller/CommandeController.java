@@ -26,14 +26,18 @@ public class CommandeController {
 		System.out.println("====  /valider-panier  ====");
 		List<Long> ordinateurCommanderListId = (List<Long>) request.getSession().getAttribute("ordinateurCommanderListId");
 		System.out.println("ordinateurCommanderListId="  +  ordinateurCommanderListId);
-		if(ordinateurCommanderListId  !=  null)  {
-			Long  idUtilisateur  =  (Long)  request.getSession().getAttribute("id");
-			utilisateurService.passerCommandeOrdinateurs(ordinateurCommanderListId,  idUtilisateur);
-			request.getSession().removeAttribute("ordinateurAcheterListId");
+		  if (ordinateurCommanderListId != null) {
+		        Long idUtilisateur = (Long) request.getSession().getAttribute("id");
+		        utilisateurService.passerCommandeOrdinateurs(ordinateurCommanderListId, idUtilisateur);
+		        for (Long id : ordinateurCommanderListId) {
+		            ordinateurService.decrementernombreOrdinateur(id);
+		        }
+		        request.getSession().removeAttribute("ordinateurCommanderListId");
+		    } else {
+		        System.out.println("Pas d'ordinateur acheté");
+		    }
+		    return "redirect:/afficher-commande";
 		}
-		else  System.out.println("Pas d'ordinateur acheté");
-		return  "redirect:/afficher-commande";
-	}
     @RequestMapping("/afficher-commande")
     public String afficherCommande(Model model, HttpServletRequest request) {
         System.out.println("==== /afficher-commande ====");
