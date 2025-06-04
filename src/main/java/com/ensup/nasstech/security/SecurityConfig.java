@@ -19,32 +19,30 @@ public class SecurityConfig {
 
 	@Autowired
     private CustomUserDetailsService userDetailsService;
-	
+		
 	 @Bean
-	    public PasswordEncoder passwordEncoder() {
-	        return new BCryptPasswordEncoder();
-	    }
-	
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    	   http
-    	   .authorizeHttpRequests(authz -> authz
-    	            .anyRequest().permitAll() // Autoriser toutes les requêtes sans restriction
-    	        )
-           .formLogin(form -> form
-               .loginPage("/connexion")
-               .loginProcessingUrl("/connexion-validation")
-               .defaultSuccessUrl("/accueil", true)
-               .permitAll()
-           )
-           .logout(logout -> logout
-               .logoutUrl("/deconnexion")
-               .logoutSuccessUrl("/accueil")
-           )
-           .userDetailsService(userDetailsService)
-           .csrf(AbstractHttpConfigurer::disable);
+	 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	     http
+	         .authorizeHttpRequests(authz -> authz
+	             .requestMatchers("/profil").authenticated() // accessible à tout utilisateur connecté
+	             .requestMatchers("/admin","/creer-ordinateur").hasAuthority("administrateur") // accessible uniquement à un administrateur
+	             .anyRequest().permitAll() // tout le reste est librement accessible
+	         )
+	         .formLogin(form -> form
+	             .loginPage("/profil")
+	             .loginProcessingUrl("/connexion-validation")
+	             .defaultSuccessUrl("/accueil", true)
+	             .permitAll()
+	         )
+	         .logout(logout -> logout
+	             .logoutUrl("/deconnexion")
+	             .logoutSuccessUrl("/accueil")
+	         )
+	         .userDetailsService(userDetailsService)
+	         .csrf(AbstractHttpConfigurer::disable);
 
-       return http.build();
-   }
+	     return http.build();
+	 }
+
 }
 
