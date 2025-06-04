@@ -1,22 +1,19 @@
 package com.ensup.nasstech.controller;
 
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ensup.nasstech.entity.Achat;
-import com.ensup.nasstech.entity.Ordinateur;
+import com.ensup.nasstech.entity.Commande;
 import com.ensup.nasstech.service.OrdinateurServiceItf;
 import com.ensup.nasstech.service.UtilisateurServiceItf;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class AchatController {
+public class CommandeController {
 
     @Autowired
     private UtilisateurServiceItf utilisateurService;
@@ -27,26 +24,23 @@ public class AchatController {
     @RequestMapping("/valider-panier")
 	public  String  validerPanier(Model  model,  HttpServletRequest  request)  {
 		System.out.println("====  /valider-panier  ====");
-		List<Long>  ordinateurAcheterListId  =  (List<Long>)  request.getSession().getAttribute("ordinateurAcheterListId");
-		System.out.println("ordinateurAcheterListId="  +  ordinateurAcheterListId);
-		if(ordinateurAcheterListId  !=  null)  {
+		List<Long> ordinateurCommanderListId = (List<Long>) request.getSession().getAttribute("ordinateurCommanderListId");
+		System.out.println("ordinateurCommanderListId="  +  ordinateurCommanderListId);
+		if(ordinateurCommanderListId  !=  null)  {
 			Long  idUtilisateur  =  (Long)  request.getSession().getAttribute("id");
-			utilisateurService.acheterListOrdinateurUtilisateur(ordinateurAcheterListId,  idUtilisateur);
+			utilisateurService.passerCommandeOrdinateurs(ordinateurCommanderListId,  idUtilisateur);
 			request.getSession().removeAttribute("ordinateurAcheterListId");
 		}
 		else  System.out.println("Pas d'ordinateur acheté");
-		return  "redirect:/afficher-achat";
+		return  "redirect:/afficher-commande";
 	}
-    @RequestMapping("/afficher-achat")
-    public String afficherAchat(Model model, HttpServletRequest request) {
-        System.out.println("==== /afficher-achat ====");
+    @RequestMapping("/afficher-commande")
+    public String afficherCommande(Model model, HttpServletRequest request) {
+        System.out.println("==== /afficher-commande ====");
         Long idUtilisateur = (Long) request.getSession().getAttribute("id");
-        List<Achat> achatList = utilisateurService.getAchatOrdinateurList(idUtilisateur);
-        System.out.println("achatList=" + achatList);
-        model.addAttribute("titre", "Achat");
-        model.addAttribute("achatList", achatList);
-        return "achat";
+        List<Commande> commandeList = utilisateurService.getCommandeOrdinateurList(idUtilisateur);
+        System.out.println("commandeList=" + commandeList);
+        model.addAttribute("commandeList", commandeList);
+        return "commande";
     }
-
-
 }

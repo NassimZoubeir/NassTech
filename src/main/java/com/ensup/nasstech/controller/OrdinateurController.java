@@ -53,7 +53,7 @@ public class OrdinateurController {
     }
 	 @RequestMapping("/creer-ordinateur")
 	 public String creerOrdinateur(Model model) {
-	 model.addAttribute("titre", "Ajouter un ordinateur");
+	 model.addAttribute("titre", "Créer un ordinateur");
 	 model.addAttribute("marques", marqueRepository.findAll());
 	 return "creer-ordinateur";
 	 }
@@ -120,43 +120,46 @@ public class OrdinateurController {
 		 @RequestMapping("/acheter/{id}")
 		    public String acheterOrdinateur(@PathVariable Long id, Model model, HttpServletRequest request) {
 		    	System.out.println("==== /acheter/" + id + " ====");
-		    	List<Long> ordinateurAcheterListId = (List<Long>) request.getSession().getAttribute("ordinateurAcheterListId");
-		    	if(ordinateurAcheterListId == null) {
-		    		ordinateurAcheterListId = new ArrayList<>();
+		    	List<Long> ordinateurCommanderListId = (List<Long>) request.getSession().getAttribute("ordinateurCommanderListId");
+		    	if(ordinateurCommanderListId == null) {
+		    		ordinateurCommanderListId = new ArrayList<>();
 		    	}
 		    	
-		    	if(!ordinateurAcheterListId.contains(id)) {
-		    		ordinateurAcheterListId.add(id);
+		    	if(!ordinateurCommanderListId.contains(id)) {
+		    		ordinateurCommanderListId.add(id);
 		    		ordinateurService.decrementernombreOrdinateur(id);
 		    	}
-		    	request.getSession().setAttribute("ordinateurAcheterListId", ordinateurAcheterListId);
-		    	System.out.println("ordinateurAcheterListId=" + ordinateurAcheterListId);
+		    	request.getSession().setAttribute("ordinateurCommanderListId", ordinateurCommanderListId);
+		    	System.out.println("ordinateurCommanderListId=" + ordinateurCommanderListId);
 		    	return "redirect:/afficher-panier";
 		    }
 		 @RequestMapping("/afficher-panier")
 			public String afficherPanier(Model model, HttpServletRequest request) {
 				System.out.println("==== /afficher-panier ====");
-				List<Long> ordinateurAcheterListId = (List<Long>) request.getSession().getAttribute("ordinateurAcheterListId");
-				System.out.println("ordinateurAcheterListId=" + ordinateurAcheterListId);
-				if(ordinateurAcheterListId != null) {
-					List<Ordinateur> ordinateurAcheterList = ordinateurService.getOrdinateurAcheterListParOrdinateurIdList(ordinateurAcheterListId);
-					model.addAttribute("ordinateurAcheterList", ordinateurAcheterList);
+				List<Long> ordinateurCommanderListId = (List<Long>) request.getSession().getAttribute("ordinateurCommanderListId");
+				System.out.println("ordinateurCommanderListId=" + ordinateurCommanderListId);
+				if(ordinateurCommanderListId != null) {
+					List<Ordinateur> ordinateurCommanderList = ordinateurService.getOrdinateurCommanderListParOrdinateurIdList(ordinateurCommanderListId);
+					model.addAttribute("ordinateurCommanderList", ordinateurCommanderList);
 				}
 				else System.out.println("Pas d'ordinateur acheté");
 				model.addAttribute("dénomination", "Achat d'ordinateur");
 				return "panier";
 			}
 		 @RequestMapping("/supprimer-panier/{id}")
-		    public String supprimerOrdinateurPanier(@PathVariable Long id, Model model, HttpServletRequest request) {
-		    	System.out.println("==== /supprimer-panier ====");
-		    	List<Long> ordinateurAcheterListId = (List<Long>) request.getSession().getAttribute("ordinateurAcheterListId");
-		    	System.out.println("ordinateurAcheterListId=" + ordinateurAcheterListId);
-		    	ordinateurAcheterListId.remove(id);
-		    	ordinateurService.incrementernombreOrdinateur(id);
-		    	request.getSession().setAttribute("ordinateurAcheterListId", ordinateurAcheterListId);
-		    	System.out.println("ordinateurAcheterListId=" + ordinateurAcheterListId);
-		    	return "redirect:/afficher-panier";
-		    }
+		 public String supprimerOrdinateurPanier(@PathVariable Long id, Model model, HttpServletRequest request) {
+		     System.out.println("==== /supprimer-panier ====");
+		     List<Long> ordinateurCommanderListId = (List<Long>) request.getSession().getAttribute("ordinateurCommanderListId");
+		     System.out.println("ordinateurCommanderListId=" + ordinateurCommanderListId);
+		     if (ordinateurCommanderListId != null) {
+		         ordinateurCommanderListId.remove(id);
+		         ordinateurService.incrementernombreOrdinateur(id);
+		         request.getSession().setAttribute("ordinateurCommanderListId", ordinateurCommanderListId);
+		         System.out.println("ordinateurCommanderListId=" + ordinateurCommanderListId);
+		     }
+		     return "redirect:/afficher-panier";
+		 }
+
 		  @GetMapping("/recherche")
 		    public String rechercherOrdinateurs(@RequestParam("query") String query, Model model) {
 		        List<Ordinateur> resultats = ordinateurService.rechercherOrdinateurs(query);

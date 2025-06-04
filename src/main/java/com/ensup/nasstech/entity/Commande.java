@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Achat {
+public class Commande {
     @Id
     @GeneratedValue
     private Long id;
@@ -16,9 +16,9 @@ public class Achat {
     @ManyToOne
     private Ordinateur ordinateur;
 
-    public Achat() {}
+    public Commande() {}
 
-    public Achat(Ordinateur ordinateur, Date dateAchat) {
+    public Commande(Ordinateur ordinateur, Date dateAchat) {
         this.ordinateur = ordinateur;
         this.dateAchat = dateAchat;
     }

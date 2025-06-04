@@ -7,11 +7,11 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ensup.nasstech.entity.Achat;
+import com.ensup.nasstech.entity.Commande;
 import com.ensup.nasstech.entity.Ordinateur;
 import com.ensup.nasstech.entity.Utilisateur;
 import com.ensup.nasstech.entity.VerificationToken;
-import com.ensup.nasstech.repository.AchatRepository;
+import com.ensup.nasstech.repository.CommandeRepository;
 import com.ensup.nasstech.repository.OrdinateurRepository;
 import com.ensup.nasstech.repository.UtilisateurRepository;
 import com.ensup.nasstech.repository.VerificationTokenRepository;
@@ -35,7 +35,7 @@ public  class UtilisateurService implements UtilisateurServiceItf {
 	private  OrdinateurServiceItf  ordinateurService;
 	
 	@Autowired
-	private AchatRepository achatRepository;
+	private CommandeRepository commandeRepository;
 
 	@Override
 	public void creerUtilisateur(Utilisateur utilisateur) {
@@ -84,33 +84,33 @@ public  class UtilisateurService implements UtilisateurServiceItf {
 		return utilisateur;
 	}
 	@Override
-	public List<Achat> getAchatOrdinateurList(Long idUtilisateur) {
+	public List<Commande> getCommandeOrdinateurList(Long idUtilisateur) {
 		Utilisateur utilisateur = lireUtilisateurParId(idUtilisateur);
-		System.out.println("UtilisateurService - getAchatOrdinateurList utilisateur:" + utilisateur);
-		return utilisateur.getAcheterOrdinateurList();
+		System.out.println("UtilisateurService - getCommandeOrdinateurList utilisateur:" + utilisateur);
+		return utilisateur.getCommanderOrdinateurList();
 	}
 	@Override
-	public Achat getAchatById(Long id) {
-		return achatRepository.findById(id).get();
+	public Commande getCommandeById(Long id) {
+	    return commandeRepository.findById(id).get();
 	}
+
 	@Override
-	public void acheterListOrdinateurUtilisateur(List<Long> ordinateurIdList, Long idUtilisateur) {
-		Utilisateur utilisateur = lireUtilisateurParId(idUtilisateur);
-		List<Ordinateur> ordinateurList = ordinateurService.getOrdinateurAcheterListParOrdinateurIdList(ordinateurIdList);
-		System.out.println("UtilisateurService - acheterListOrdinateurUtilisateur ordinateurList:\n" + ordinateurList);
-		System.out.println("majOrdinateurAcheterListUtilisateur utilisateur=" + utilisateur);
-		Achat achat = null;
-		for(int i=0; i < ordinateurList.size(); i++) {
-			achat = new Achat(ordinateurList.get(i), new Date());
-			achatRepository.save(achat);
-			utilisateur.acheterOrdinateur(achat);
-		}
-		System.out.println("majOrdinateurAcheterListUtilisateur utilisateur=" + utilisateur);
-		utilisateurRepository.save(utilisateur);	
-	}
-	    @Override
-	    public void majAchat(Achat achat) {
-	        achatRepository.save(achat);
+	public void passerCommandeOrdinateurs(List<Long> ordinateurIdList, Long idUtilisateur) {
+	    Utilisateur utilisateur = lireUtilisateurParId(idUtilisateur);
+	    List<Ordinateur> ordinateurList = ordinateurService.getOrdinateurCommanderListParOrdinateurIdList(ordinateurIdList);
+	    Commande commande = null;
+	    for (Ordinateur ordinateur : ordinateurList) {
+	        commande = new Commande(ordinateur, new Date());
+	        commandeRepository.save(commande);
+	        utilisateur.ajouterCommande(commande);
 	    }
+	    utilisateurRepository.save(utilisateur);
+	}
+
+	@Override
+	public void majCommande(Commande commande) {
+	    commandeRepository.save(commande);
+	}
+
 	
 }

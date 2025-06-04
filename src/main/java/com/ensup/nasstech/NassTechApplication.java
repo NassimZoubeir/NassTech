@@ -7,12 +7,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
-import com.ensup.nasstech.entity.Achat;
+import com.ensup.nasstech.entity.Commande;
 import com.ensup.nasstech.entity.Marque;
 import com.ensup.nasstech.entity.Ordinateur;
 import com.ensup.nasstech.entity.Utilisateur;
 import com.ensup.nasstech.outil.Outil;
-import com.ensup.nasstech.repository.AchatRepository;
+import com.ensup.nasstech.repository.CommandeRepository;
 import com.ensup.nasstech.repository.MarqueRepository;
 import com.ensup.nasstech.repository.OrdinateurRepository;
 import com.ensup.nasstech.repository.UtilisateurRepository;
@@ -22,14 +22,14 @@ import com.ensup.nasstech.service.EmailServiceImpl;
 public class NassTechApplication {
 	private  static OrdinateurRepository  ordinateurRepository  =  null;
 	private static UtilisateurRepository utilisateurRepository = null;
-	private static AchatRepository achatRepository = null;
+	private static CommandeRepository commandeRepository = null;
 	private static MarqueRepository marqueRepository = null;
 	private static EmailServiceImpl emailService = null;
 	public static void main(String[] args) {
 		ApplicationContext  ctx  = SpringApplication.run(NassTechApplication.class, args);
 		ordinateurRepository  =  ctx.getBean(OrdinateurRepository.class);
 		utilisateurRepository = ctx.getBean(UtilisateurRepository.class);
-		achatRepository = ctx.getBean(AchatRepository.class);
+		commandeRepository = ctx.getBean(CommandeRepository.class);
 		marqueRepository = ctx.getBean(MarqueRepository.class);
 		emailService = ctx.getBean(EmailServiceImpl.class);
 		initialiser();
@@ -128,9 +128,9 @@ public class NassTechApplication {
 		} catch (NoSuchAlgorithmException e) {
 			 System.out.println("Impossible de créer l'utilisateur admin");
 		}
-		Achat achat = new Achat(ordinateur1, new Date()); 
-		achatRepository.save(achat);
-		utilisateur.acheterOrdinateur(achat);
+		Commande commande = new Commande(ordinateur1, new Date()); 
+		commandeRepository.save(commande);
+		utilisateur.commanderOrdinateur(commande);
 		utilisateurRepository.save(utilisateur);
 		
 	//	 emailService.sendSimpleMessage("zoubeirnassim@gmail.com", "Email Test NassTech", "Bonjour Nassim ce mail vient de ton application NassTech");

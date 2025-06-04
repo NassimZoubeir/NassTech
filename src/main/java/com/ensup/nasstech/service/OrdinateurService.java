@@ -28,12 +28,12 @@ public class OrdinateurService implements OrdinateurServiceItf {
 		return ordinateur;
 	 }
 	@Override
-	public List<Ordinateur> getOrdinateurAcheterListParOrdinateurIdList(List<Long> ordinateurAcheterListId) {
-		List<Ordinateur> ordinateurAcheterList = new ArrayList<>();
-		for(int i=0; i < ordinateurAcheterListId.size(); i++) {
-			ordinateurAcheterList.add(getOrdinateurById(ordinateurAcheterListId.get(i)));
+	public List<Ordinateur> getOrdinateurCommanderListParOrdinateurIdList(List<Long> ordinateurCommanderListId) {
+		List<Ordinateur> ordinateurCommanderList = new ArrayList<>();
+		for(int i=0; i < ordinateurCommanderListId.size(); i++) {
+			ordinateurCommanderList.add(getOrdinateurById(ordinateurCommanderListId.get(i)));
 		}
-		return ordinateurAcheterList;
+		return ordinateurCommanderList;
 	}
 	@Override
 	public void decrementernombreOrdinateur(Long id) {

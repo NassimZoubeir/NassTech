@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="ordinateur : ${ordinateurAcheterList}" class="align-middle">
+                    <tr th:each="ordinateur : ${ordinateurCommanderList}" class="align-middle">
                         <td th:text="${ordinateur.id}" class="text-center"></td>
                         <td class="text-center">
                             <img width="80" class="img-thumbnail" th:src="'/images/' + ${ordinateur.image}" alt="Image ordinateur">

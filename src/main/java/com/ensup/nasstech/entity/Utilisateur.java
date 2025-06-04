@@ -20,7 +20,7 @@ public class Utilisateur {
 	private String role;
 	private String adresse;
 	@OneToMany
-	private List<Achat> acheterOrdinateurList;
+	private List<Commande> commanderOrdinateurList;
 	
 	private boolean verified = false;
 	
@@ -31,14 +31,14 @@ public class Utilisateur {
 		this.email = email;
 		this.role = role;
 		this.adresse = adresse;
-		acheterOrdinateurList = new ArrayList<Achat>();
+		commanderOrdinateurList = new ArrayList<Commande>();
 	}
 	@Override
 	public String toString() {
 		return "Utilisateur [login=" + login + ", id=" + id + ", passwdHash=" + passwdHash + ", email=" + email + ", role=" + role +"]";
 	}
-	 public void acheterOrdinateur(Achat achat) {
-		 acheterOrdinateurList.add(achat);
+	public void ajouterCommande(Commande commande) {
+	    commanderOrdinateurList.add(commande);
 	}
 	public String getLogin() {
 		return login;
@@ -84,10 +84,13 @@ public class Utilisateur {
     public void setVerified(boolean verified) {
         this.verified = verified;
     }
-	public List<Achat> getAcheterOrdinateurList() {
-		return acheterOrdinateurList;
+	public List<Commande> getCommanderOrdinateurList() {
+		return commanderOrdinateurList;
 	}
-	public void setAcheterOrdinateurList(List<Achat> acheterOrdinateurList) {
-		this.acheterOrdinateurList = acheterOrdinateurList;
+	public void setCommanderOrdinateurList(List<Commande> commanderOrdinateurList) {
+		this.commanderOrdinateurList = commanderOrdinateurList;
+	}
+	public void commanderOrdinateur(Commande commande) {
+		
 	}
 }
