@@ -12,19 +12,19 @@ public class Commande {
     @Id
     @GeneratedValue
     private Long id;
-    private Date dateAchat;
+    private Date dateCommande;
     @ManyToOne
     private Ordinateur ordinateur;
 
     public Commande() {}
 
-    public Commande(Ordinateur ordinateur, Date dateAchat) {
+    public Commande(Ordinateur ordinateur, Date dateCommande) {
         this.ordinateur = ordinateur;
-        this.dateAchat = dateAchat;
+        this.dateCommande = dateCommande;
     }
     @Override
     public String toString() {
-        return "Achat [id=" + id + ", dateAchat=" + dateAchat + ", ordinateur=" + ordinateur + "]";
+        return "Commande [id=" + id + ", dateCommande=" + dateCommande + ", ordinateur=" + ordinateur + "]";
     }
     public Long getId() {
         return id;
@@ -34,12 +34,12 @@ public class Commande {
         this.id = id;
     }
 
-    public Date getDateAchat() {
-        return dateAchat;
+    public Date getDateCommande() {
+        return dateCommande;
     }
 
-    public void setDateAchat(Date dateAchat) {
-        this.dateAchat = dateAchat;
+    public void setDateCommande(Date dateCommande) {
+        this.dateCommande = dateCommande;
     }
 
     public Ordinateur getOrdinateur() {
