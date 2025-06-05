@@ -24,7 +24,7 @@ public class SecurityConfig {
 	 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	     http
 	         .authorizeHttpRequests(authz -> authz
-	             .requestMatchers("/profil","/admin").authenticated() // accessible à tout utilisateur connecté + admin pour le moment
+	             .requestMatchers("/profil").authenticated() // accessible à tout utilisateur connecté + admin pour le moment
 	            //.requestMatchers("/admin","/creer-ordinateur").hasAuthority("administrateur") // accessible uniquement à un administrateur
 	             .anyRequest().permitAll() // tout le reste est librement accessible
 	         )
