@@ -61,29 +61,36 @@ public  class  UtilisateurController  {
 		return  "login";
 	}
 	@RequestMapping("/login-validation")
-    public String login(String login, String password, Model model, HttpServletRequest request) {
-    	System.out.println("==== login-validation ====");
-    	System.out.println(login + " / " + password);
-    	String hashPassword = null;
-		try {
-			hashPassword = Outil.hashMdpSha256(password);
-		} catch (NoSuchAlgorithmException e) {
-			System.out.println("ERREUR - fonction hashMdpSha256");
-		}
-    	System.out.println("hashPassword=" + hashPassword);
-    	Utilisateur utilisateur = utilisateurService.lireUtilisateurParLogin(login);
-    	System.out.println("utilisateur:" + utilisateur);
-    	if(utilisateur.getPasswdHash().equals(hashPassword)) {
-    		System.out.println("Vous êtes connecté");
-    		request.getSession().setAttribute("id",  utilisateur.getId());
-			request.getSession().setAttribute("login",  utilisateur.getLogin());
-			request.getSession().setAttribute("role",  utilisateur.getRole());
-			return "redirect:/profil";
-    	}
-    	else System.out.println("Vous n'êtes pas connecté");
-    	 model.addAttribute("erreur", "Nom d'utilisateur ou mot de passe incorrect.");
-    	return "login";
-    }
+	public String login(String login, String password, Model model, HttpServletRequest request) {
+	    System.out.println("==== login-validation ====");
+	    System.out.println(login + " / " + password);
+
+	    String hashPassword = null;
+	    try {
+	        hashPassword = Outil.hashMdpSha256(password);
+	    } catch (NoSuchAlgorithmException e) {
+	        System.out.println("ERREUR - fonction hashMdpSha256");
+	    }
+	    Utilisateur utilisateur = utilisateurService.lireUtilisateurParLogin(login);
+
+	    // Vérifie si l'utilisateur existe et que le mot de passe correspond
+	    if (utilisateur == null || !utilisateur.getPasswdHash().equals(hashPassword)) {
+	        model.addAttribute("erreur", "Nom d'utilisateur ou mot de passe incorrect.");
+	        return "login";
+	    }
+	    // Vérifie si le compte est bien activé
+	    if (!utilisateur.isVerified()) {
+	        model.addAttribute("erreur", "Votre compte n'est pas encore vérifié. Veuillez consulter votre boîte mail.");
+	        return "login";
+	    }
+	    // Connexion réussie
+	    request.getSession().setAttribute("id", utilisateur.getId());
+	    request.getSession().setAttribute("login", utilisateur.getLogin());
+	    request.getSession().setAttribute("role", utilisateur.getRole());
+
+	    return "redirect:/profil";
+	}
+
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request) {
 		System.out.println("====  /logout  ====");

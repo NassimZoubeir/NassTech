@@ -117,6 +117,7 @@ public class NassTechApplication {
 		try {
 			hashPassword = Outil.hashMdpSha256("nass");
 			utilisateur = new Utilisateur("nass", hashPassword, "nass@gmail.com", "abonne", "18 Avenue du Prado, 13008 Marseille");
+			 utilisateur.setVerified(true);
 			utilisateurRepository.save(utilisateur);
 		} catch (NoSuchAlgorithmException e) {
 			System.out.println("Impossible de créer l'utilisateur nass");
@@ -124,14 +125,15 @@ public class NassTechApplication {
 		 try {
 			 hashPassword = Outil.hashMdpSha256("admin");
 			 utilisateur = new Utilisateur("admin", hashPassword, "admin@gmail.com", "administrateur", "1 rue de la République, 13002 Marseille");
+			 utilisateur.setVerified(true);
 			 utilisateurRepository.save(utilisateur);
 		} catch (NoSuchAlgorithmException e) {
 			 System.out.println("Impossible de créer l'utilisateur admin");
 		}
-		Commande commande = new Commande(ordinateur1, new Date()); 
+	/*	Commande commande = new Commande(ordinateur1, new Date()); 
 		commandeRepository.save(commande);
 		utilisateur.commanderOrdinateur(commande);
-		utilisateurRepository.save(utilisateur);
+		utilisateurRepository.save(utilisateur); */
 		
 	//	 emailService.sendSimpleMessage("zoubeirnassim@gmail.com", "Email Test NassTech", "Bonjour Nassim ce mail vient de ton application NassTech");
 	}
