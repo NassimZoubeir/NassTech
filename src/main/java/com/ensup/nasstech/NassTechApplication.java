@@ -53,15 +53,15 @@ public class NassTechApplication {
         marqueRepository.save(msi);
 		
 		 Ordinateur ordinateur1 = new Ordinateur("Ordinateur Apple MACBOOK CTO Pro 13 New M1 16 256 iGris sideral",
-	                1549.99, "Puce Apple M1", 13.3, 16, "01.png",
+	                1549.99, "Puce Apple M1", 13.3, 16, "A.png",
 	                "https://www.boulanger.com/ref/1156449", 5, apple);
 
 	        Ordinateur ordinateur2 = new Ordinateur("PACKARD BELL PB314-35-P53X", 449,
-	                "Intel Pentium Silver N6000", 14, 8, "02.png",
+	                "Intel Pentium Silver N6000", 14, 8, "B.png",
 	                "https://www.boulanger.com/ref/1164052", 5, packardBell);
 
 	        Ordinateur ordinateur3 = new Ordinateur("Matebook 14s 2021 I7 16Go 512 Touch", 1049,
-	                "Intel Core i7 11370H", 14.2, 16, "03.png",
+	                "Intel Core i7 11370H", 14.2, 16, "C.png",
 	                "https://www.boulanger.com/ref/1171445", 4, huawei);
 
 	        Ordinateur ordinateur4 = new Ordinateur("ACER Aspire A317-52-54QM Noir", 699,
