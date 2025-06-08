@@ -52,9 +52,10 @@ public class NassTechApplication {
         marqueRepository.save(lenovo);
         marqueRepository.save(msi);
 		
-		 Ordinateur ordinateur1 = new Ordinateur("Ordinateur Apple MACBOOK CTO Pro 13 New M1 16 256 iGris sideral",
+		 Ordinateur ordinateur1 = new Ordinateur("Ordinateur Apple MACBOOK CTO Pro 13", //(New M1 16 256 iGris sideral)
 	                1549.99, "Puce Apple M1", 13.3, 16, "A.png",
 	                "https://www.boulanger.com/ref/1156449", 5, apple);
+		 
 
 	        Ordinateur ordinateur2 = new Ordinateur("PACKARD BELL PB314-35-P53X", 449,
 	                "Intel Pentium Silver N6000", 14, 8, "B.png",
