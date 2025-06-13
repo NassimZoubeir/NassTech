@@ -117,7 +117,7 @@ public class NassTechApplication {
 		Utilisateur utilisateur = null;
 		try {
 			hashPassword = Outil.hashMdpSha256("nass");
-			utilisateur = new Utilisateur("nass", hashPassword, "nass@gmail.com", "abonne", "18 Avenue du Prado, 13008 Marseille");
+			utilisateur = new Utilisateur("nass", hashPassword, "nass@gmail.com", "utilisateur", "18 Avenue du Prado, 13008 Marseille");
 			 utilisateur.setVerified(true);
 			utilisateurRepository.save(utilisateur);
 		} catch (NoSuchAlgorithmException e) {

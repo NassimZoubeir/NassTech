@@ -52,7 +52,7 @@ public  class  UtilisateurController  {
 			System.out.println("ERREUR  -  fonction  hashMdpSha256");
 		}
 		
-		Utilisateur  utilisateur  =  new  Utilisateur(login,  hashPassword,  mail,  "abonne", adresse);
+		Utilisateur  utilisateur  =  new  Utilisateur(login,  hashPassword,  mail, "utilisateur", adresse);
 		utilisateurService.creerUtilisateur(utilisateur);
 		return  "login";
 	}
