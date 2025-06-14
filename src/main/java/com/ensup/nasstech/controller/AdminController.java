@@ -43,6 +43,7 @@ public class AdminController {
 
 	    @PostMapping("/admin/supprimerUtilisateur/{id}")
 	    public String supprimerUtilisateur(@PathVariable Long id) {
+	    	verificationTokenRepository.deleteByUtilisateurId(id);
 	        utilisateurRepository.deleteById(id);
 	        return "redirect:/admin";
 	    }

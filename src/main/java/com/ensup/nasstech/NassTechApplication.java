@@ -58,53 +58,41 @@ public class NassTechApplication {
         marqueRepository.save(msi);
 		
 		 Ordinateur ordinateur1 = new Ordinateur("Ordinateur Apple MACBOOK CTO Pro 13", //(New M1 16 256 iGris sideral)
-	                1549.99, "Puce Apple M1", 13.3, 16, "A.png",
-	                "https://www.boulanger.com/ref/1156449", 5, apple);
+	                1549.99, "Puce Apple M1", 13.3, 16, "A.png", 5, apple);
 		 
 
 	        Ordinateur ordinateur2 = new Ordinateur("PACKARD BELL PB314-35-P53X", 449,
-	                "Intel Pentium Silver N6000", 14, 8, "B.png",
-	                "https://www.boulanger.com/ref/1164052", 5, packardBell);
+	                "Intel Pentium Silver N6000", 14, 8, "B.png", 5, packardBell);
 
 	        Ordinateur ordinateur3 = new Ordinateur("Matebook 14s 2021 I7 16Go 512 Touch", 1049,
-	                "Intel Core i7 11370H", 14.2, 16, "C.png",
-	                "https://www.boulanger.com/ref/1171445", 4, huawei);
+	                "Intel Core i7 11370H", 14.2, 16, "C.png", 4, huawei);
 
 	        Ordinateur ordinateur4 = new Ordinateur("ACER Aspire A317-52-54QM Noir", 699,
-	                "Intel Core i7 11370H", 17.3, 8, "04.png",
-	                "https://www.boulanger.com/ref/1148125", 8, acer);
+	                "Intel Core i7 11370H", 17.3, 8, "04.png", 8, acer);
 
 	        Ordinateur ordinateur5 = new Ordinateur("ACER Aspire Vero AV15-51-78H5", 899,
-	                "Intel Core i7 1195G7", 15.6, 16, "05.png",
-	                "https://www.boulanger.com/ref/1170405", 9, acer);
+	                "Intel Core i7 1195G7", 15.6, 16, "05.png", 9, acer);
 
 	        Ordinateur ordinateur6 = new Ordinateur("PC Hybride HP ENVY x360 13-ay0034nf", 799,
-	                "AMD Ryzen 5 4500U", 13.3, 8, "06.png",
-	                "https://www.boulanger.com/ref/1163913", 6, hp);
+	                "AMD Ryzen 5 4500U", 13.3, 8, "06.png", 6, hp);
 
 	        Ordinateur ordinateur7 = new Ordinateur("PC Hybride LENOVO Flex 5 14ITL05-257", 936.17,
-	                "Intel Core i5 1135G7", 14, 16, "07.png",
-	                "https://www.boulanger.com/ref/1164775", 2, lenovo);
+	                "Intel Core i5 1135G7", 14, 16, "07.png", 2, lenovo);
 
 	        Ordinateur ordinateur8 = new Ordinateur("HP Envy 17-ch0039nf", 1499.39,
-	                "Intel Core i7 1165G7", 17.3, 16, "08.png",
-	                "https://www.boulanger.com/ref/1161111", 10, hp);
+	                "Intel Core i7 1165G7", 17.3, 16, "08.png", 10, hp);
 
 	        Ordinateur ordinateur9 = new Ordinateur("HP 17-cp0054", 449,
-	                "AMD Athlon Silver 3050U", 17, 8, "09.png",
-	                "https://www.boulanger.com/ref/1169654", 4, hp);
+	                "AMD Athlon Silver 3050U", 17, 8, "09.png", 4, hp);
 
 	        Ordinateur ordinateur10 = new Ordinateur("ACER Aspire A517-52G-757L", 1099,
-	                "Intel Core i7 1165G7", 17.3, 16, "10.png",
-	                "https://www.boulanger.com/ref/1164115", 7, acer);
+	                "Intel Core i7 1165G7", 17.3, 16, "10.png", 7, acer);
 
 	        Ordinateur ordinateur11 = new Ordinateur("PC Gamer MSI GS66 Stealth 11UG-289FR", 3199,
-	                "Intel Core i7 11800H- 32 Go", 15.6, 32, "11.png",
-	                "https://www.boulanger.com/ref/1164182", 5, msi);
+	                "Intel Core i7 11800H- 32 Go", 15.6, 32, "11.png", 5, msi);
 
 	        Ordinateur ordinateur12 = new Ordinateur("ACER Swift SF514-55T-73TS Vert", 1199,
-	                "Intel Core i7 11800H- 32 Go", 14, 16, "12.png",
-	                "https://www.boulanger.com/ref/1164097", 2, acer);
+	                "Intel Core i7 11800H- 32 Go", 14, 16, "12.png", 2, acer);
 		
 		ordinateurRepository.save(ordinateur1);
 		ordinateurRepository.save(ordinateur2);

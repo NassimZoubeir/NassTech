@@ -18,7 +18,6 @@ public class Ordinateur {
     private double ecran;
     private int vive;
     private String image;
-    private String lien;
     private int nombreOrdinateur;
     
     @ManyToOne
@@ -26,14 +25,13 @@ public class Ordinateur {
 
 	public Ordinateur() {}
 
-    public Ordinateur(String denomination, double prix, String processeur, double ecran, int vive, String image, String lien,int nombreOrdinateur,Marque marque) {
+    public Ordinateur(String denomination, double prix, String processeur, double ecran, int vive, String image,int nombreOrdinateur,Marque marque) {
         this.denomination = denomination;
         this.prix = prix;
         this.processeur = processeur;
         this.ecran = ecran;
         this.vive = vive;
         this.image = image;
-        this.lien = lien;
         this.nombreOrdinateur = nombreOrdinateur;
         this.marque = marque;
     }
@@ -94,14 +92,6 @@ public class Ordinateur {
         this.image = image;
     }
 
-    public String getLien() {
-        return lien;
-    }
-
-    public void setLien(String lien) {
-        this.lien = lien;
-    }
-
 	public int getNombreOrdinateur() {
 		return nombreOrdinateur;
 	}
@@ -120,7 +110,6 @@ public class Ordinateur {
 	@Override
 	public String toString() {
 		return "Ordinateur [id=" + id + ", denomination=" + denomination + ", prix=" + prix + ", processeur="
-				+ processeur + ", ecran=" + ecran + ", vive=" + vive + ", image=" + image + ", lien=" + lien
-				+ ", nombreOrdinateur=" + nombreOrdinateur + ", marque=" + marque + "]";
+				+ processeur + ", ecran=" + ecran + ", vive=" + vive + ", image=" + image + ", nombreOrdinateur=" + nombreOrdinateur + ", marque=" + marque + "]";
 	}
 }

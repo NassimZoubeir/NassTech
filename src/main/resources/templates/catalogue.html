@@ -31,7 +31,6 @@
                     <p class="card-text"><strong>Écran:</strong> <span th:text="${ordinateur.ecran}"></span></p>
                     <p class="card-text"><strong>RAM:</strong> <span th:text="${ordinateur.vive}"></span></p>
                     <p class="card-text"><strong>Nombre d'ordinateurs disponibles:</strong> <span th:text="${ordinateur.nombreOrdinateur}"></span></p>
-                    <a th:href="${ordinateur.lien}" target="_blank" class="btn btn-dark">Lien vers le site</a>
                 </div>
                 <div class="card-footer text-muted">
                     <a th:href="'/afficher-ordinateur/' + ${ordinateur.id}" class="btn btn-primary">Détail</a>

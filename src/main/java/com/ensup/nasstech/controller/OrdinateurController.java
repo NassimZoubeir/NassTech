@@ -70,7 +70,6 @@ public class OrdinateurController {
 	            double ecran,
 	            String processeur,
 	            int vive,
-	            String lien,
 	            int nombreOrdinateur,
 	            MultipartFile image,
 	            Long marqueId) {
@@ -80,6 +79,7 @@ public class OrdinateurController {
 	    	if (image != null && !image.isEmpty()) {
 	    	    try {
 	    	        imageName = image.getOriginalFilename();
+	    	        System.out.println("imageDir = [" + imageDir + "]");
 	    	        Path pathFile = Paths.get(imageDir, imageName);
 
 	    	        System.out.println("Chemin de l'image : " + pathFile.toString());
@@ -102,7 +102,7 @@ public class OrdinateurController {
 	             return "error";
 	         }
 	         
-	    	Ordinateur ordinateur = new Ordinateur(denomination, prix, processeur, ecran, vive, imageName, lien, nombreOrdinateur, marque);
+	    	Ordinateur ordinateur = new Ordinateur(denomination, prix, processeur, ecran, vive, imageName, nombreOrdinateur, marque);
 	    	ordinateurService.creerOrdinateur(ordinateur);
 
 	    	return "redirect:/afficher-ordinateurs";
