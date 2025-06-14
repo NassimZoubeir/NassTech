@@ -3,6 +3,7 @@ package com.ensup.nasstech.controller;
 import java.security.NoSuchAlgorithmException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,9 @@ public  class  UtilisateurController  {
 	
 	@Autowired
 	private UtilisateurServiceItf utilisateurService;
+	
+	@Autowired
+	 private PasswordEncoder passwordEncoder;
 
 	@GetMapping("/creer-compte")
 	public  String  creerUtilisateur()  {
@@ -43,15 +47,15 @@ public  class  UtilisateurController  {
 	}
 	
 	@RequestMapping("/creer-compte-validation")
-	public  String  creerUtilisateurValidation(String  login,  String  password,  String  mail, String adresse)  {
-		System.out.println(login  +  ",  "  +  password  +  ",  "  +  mail + ", " + adresse);
-		String  hashPassword  =  null;
-		try  {
-			hashPassword  =  Outil.hashMdpSha256(password);
-		}  catch  (NoSuchAlgorithmException  e)  {
-			System.out.println("ERREUR  -  fonction  hashMdpSha256");
-		}
+	public  String  creerUtilisateurValidation(String  login,  String  password,  String  mail, String adresse, String cgu)  {
+		System.out.println(login  +  ",  "  +  password  +  ",  "  +  mail + ", " + adresse + ", " + cgu);
 		
+		 if (cgu == null) {
+		        return "redirect:/creer-compte"; 
+		    }
+		 
+		String  hashPassword  =  null;
+		hashPassword = passwordEncoder.encode(password);
 		Utilisateur  utilisateur  =  new  Utilisateur(login,  hashPassword,  mail, "utilisateur", adresse);
 		utilisateurService.creerUtilisateur(utilisateur);
 		return  "login";
@@ -66,18 +70,14 @@ public  class  UtilisateurController  {
 	    System.out.println(login + " / " + password);
 
 	    String hashPassword = null;
-	    try {
-	        hashPassword = Outil.hashMdpSha256(password);
-	    } catch (NoSuchAlgorithmException e) {
-	        System.out.println("ERREUR - fonction hashMdpSha256");
-	    }
+	    hashPassword = passwordEncoder.encode(password);
 	    Utilisateur utilisateur = utilisateurService.lireUtilisateurParLogin(login);
 
-	    // Vérifie si l'utilisateur existe et que le mot de passe correspond
+	    /* Vérifie si l'utilisateur existe et que le mot de passe correspond
 	    if (utilisateur == null || !utilisateur.getPasswdHash().equals(hashPassword)) {
 	        model.addAttribute("erreur", "Nom d'utilisateur ou mot de passe incorrect.");
 	        return "login";
-	    }
+	    } */
 	    // Vérifie si le compte est bien activé
 	    if (!utilisateur.isVerified()) {
 	        model.addAttribute("erreur", "Votre compte n'est pas encore vérifié. Veuillez consulter votre boîte mail.");

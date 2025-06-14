@@ -10,7 +10,7 @@
         <div class="card shadow-lg p-4" style="max-width: 500px; width: 100%;">
             <h2 class="text-center text-primary mb-4">Créer un compte</h2>
             <form action="/creer-compte-validation" method="POST">
-				
+
                 <div class="mb-3">
                     <label for="username" class="form-label">Nom utilisateur</label>
                     <input type="text" id="username" name="login" class="form-control" placeholder="Entrez votre nom d'utilisateur" required>
@@ -31,13 +31,16 @@
 				    <input type="text" id="adresse" name="adresse" class="form-control" placeholder="Entrez votre adresse" required>
 				</div>
 
-                <div class="form-check mb-2">
-                    <input type="checkbox" name="mentions" id="mentions" class="form-check-input" required>
-                    <label for="mentions" class="form-check-label">
-                        J'ai lu et j'accepte les conditions de service décrites dans les 
-                        <a href="index.php?action=mentions-legales" class="text-primary">mentions légales</a>
-                    </label>
-                </div>
+				<div class="form-check mb-2">
+				    <input type="checkbox" name="cgu" id="cgu" class="form-check-input" required>
+				    <label for="cgu" class="form-check-label">
+				        J’ai lu et j’accepte les 
+				        <a th:href="@{/cgu}" class="text-primary" target="_blank">Conditions Générales d’Utilisation (CGU)</a> 
+				        et les 
+				        <a th:href="@{/cgv}" class="text-primary" target="_blank">Conditions Générales de Vente (CGV)</a>.
+				    </label>
+				</div>
+
 
                 <div class="form-check mb-4">
                     <input type="checkbox" name="perso" id="perso" class="form-check-input" required>

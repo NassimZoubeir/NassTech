@@ -6,6 +6,9 @@ import java.util.Date;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.ensup.nasstech.entity.Commande;
 import com.ensup.nasstech.entity.Marque;
@@ -25,6 +28,7 @@ public class NassTechApplication {
 	private static CommandeRepository commandeRepository = null;
 	private static MarqueRepository marqueRepository = null;
 	private static EmailServiceImpl emailService = null;
+	private static PasswordEncoder passwordEncoder;
 	public static void main(String[] args) {
 		ApplicationContext  ctx  = SpringApplication.run(NassTechApplication.class, args);
 		ordinateurRepository  =  ctx.getBean(OrdinateurRepository.class);
@@ -32,6 +36,7 @@ public class NassTechApplication {
 		commandeRepository = ctx.getBean(CommandeRepository.class);
 		marqueRepository = ctx.getBean(MarqueRepository.class);
 		emailService = ctx.getBean(EmailServiceImpl.class);
+		passwordEncoder = ctx.getBean(PasswordEncoder.class);
 		initialiser();
 	}
 	public  static  void  initialiser()  {
@@ -115,28 +120,22 @@ public class NassTechApplication {
 		ordinateurRepository.save(ordinateur12);
 		String hashPassword;
 		Utilisateur utilisateur = null;
-		try {
-			hashPassword = Outil.hashMdpSha256("nass");
-			utilisateur = new Utilisateur("nass", hashPassword, "nass@gmail.com", "utilisateur", "18 Avenue du Prado, 13008 Marseille");
-			 utilisateur.setVerified(true);
-			utilisateurRepository.save(utilisateur);
-		} catch (NoSuchAlgorithmException e) {
-			System.out.println("Impossible de créer l'utilisateur nass");
-		}
-		 try {
-			 hashPassword = Outil.hashMdpSha256("admin");
-			 utilisateur = new Utilisateur("admin", hashPassword, "admin@gmail.com", "administrateur", "1 rue de la République, 13002 Marseille");
-			 utilisateur.setVerified(true);
-			 utilisateurRepository.save(utilisateur);
-		} catch (NoSuchAlgorithmException e) {
-			 System.out.println("Impossible de créer l'utilisateur admin");
-		}
-	/*	Commande commande = new Commande(ordinateur1, new Date()); 
-		commandeRepository.save(commande);
-		utilisateur.commanderOrdinateur(commande);
-		utilisateurRepository.save(utilisateur); */
+		hashPassword = passwordEncoder.encode("nass");
+		utilisateur = new Utilisateur("nass", hashPassword, "nass@gmail.com", "utilisateur", "18 Avenue du Prado, 13008 Marseille");
+		 utilisateur.setVerified(true);
+		utilisateurRepository.save(utilisateur);
+		
+		
+		 hashPassword = passwordEncoder.encode("admin");
+		 utilisateur = new Utilisateur("admin", hashPassword, "admin@gmail.com", "administrateur", "1 rue de la République, 13002 Marseille");
+		 utilisateur.setVerified(true);
+		 utilisateurRepository.save(utilisateur);
 		
 	//	 emailService.sendSimpleMessage("zoubeirnassim@gmail.com", "Email Test NassTech", "Bonjour Nassim ce mail vient de ton application NassTech");
+	}
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 	
 }
