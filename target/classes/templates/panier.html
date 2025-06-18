@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+<head>
+    <title>Panier</title>
+</head>
+<body>
+<div layout:fragment="content" class="container my-5">
+    <h1 class="text-center">Panier</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover shadow-sm">
+            <thead class="table-primary text-center">
+            <tr>
+                <th>Id</th>
+                <th>Image</th>
+                <th>Dénomination</th>
+                <th>Marque</th>
+                <th>Prix (€)</th>
+                <th>Processeur</th>
+                <th>Écran</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ordinateur : ${ordinateurCommanderList}" class="align-middle">
+                <td th:text="${ordinateur.id}" class="text-center"></td>
+                <td class="text-center">
+                    <img width="80" class="img-thumbnail" th:src="@{'/images/' + ${ordinateur.image}}" alt="Image ordinateur">
+                </td>
+                <td th:text="${ordinateur.denomination}"></td>
+                <td th:text="${ordinateur.marque.nom}"></td>
+                <td th:text="${ordinateur.prix}"></td>
+                <td th:text="${ordinateur.processeur}"></td>
+                <td th:text="${ordinateur.ecran}"></td>
+                <td class="text-center">
+                    <a th:href="@{'/afficher-ordinateur/' + ${ordinateur.id}}" class="btn btn-info btn-sm">Détail</a>
+                </td>
+                <td class="text-center">
+                    <a th:href="@{'/supprimer-panier/' + ${ordinateur.id}}" class="btn btn-danger btn-sm">Supprimer</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center mt-4">
+        <button th:if="${session.role != null}" id="btn-payer" class="btn btn-success btn-lg">
+            Valider et payer
+        </button>
+
+        <div th:unless="${session.role != null}">
+            <a href="/login" class="btn btn-primary">Connectez-vous pour payer</a>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="scripts">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const stripe = Stripe("pk_test_51RbNULRPbAolL8M88hUas4cX0OXJe1RvxrPGaUkYV6XbgO8BtEfOHSvPnE1U16ebuDNzvYWKQjvXMsffi9jIXzjj00tcBkK8ys");
+            const btnPayer = document.getElementById("btn-payer");
+
+            if (btnPayer) {
+                console.log("💡 Bouton trouvé, ajout du listener...");
+                btnPayer.addEventListener("click", () => {
+                    console.log("🟢 Clic détecté, envoi à Stripe...");
+                    fetch("/stripe/create-checkout-session", {
+                        method: "POST"
+                    })
+                    .then(res => {
+                        if (!res.ok) throw new Error("Erreur lors de la création de la session de paiement");
+                        return res.json();
+                    })
+                    .then(data => stripe.redirectToCheckout({ sessionId: data.id }))
+                    .catch(error => {
+                        alert("Paiement échoué : " + error.message);
+                        console.error(error);
+                    });
+                });
+            } else {
+                console.warn("❌ Bouton #btn-payer non trouvé !");
+            }
+        });
+    </script>
+</div>
+</body>
+</html>

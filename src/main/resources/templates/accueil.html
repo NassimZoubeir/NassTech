@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+<head>
+	<title>Accueil</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">NassTech</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#section1">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#section2">Catalogue</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#section3">À propos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#section4">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div layout:fragment="content" class="container py-5">
+        <section id="section1" class="mb-5">
+            <h3 class="text-primary text-center">Bienvenue chez NassTech</h3>
+            <article class="bg-light p-4 rounded shadow">
+                <p>Chez <strong>NassTech</strong>, nous nous engageons à rendre la technologie accessible à tous, en offrant une sélection d'ordinateurs pour chaque besoin : bureautique, gaming, ou création numérique. Nos produits sont soigneusement choisis pour leur performance et leur durabilité.</p>
+                <p>Que vous soyez étudiant, professionnel ou gamer, nous avons l'ordinateur qui vous correspond.</p>
+            </article>
+        </section>
+
+        <section id="section2" class="mb-5">
+            <h3 class="text-primary text-center">Nos Produits</h3>
+            <article class="bg-light p-4 rounded shadow">
+                <p>Explorez notre catalogue d'ordinateurs spécialement sélectionnés pour répondre à vos besoins professionnels et personnels. Nous proposons des ordinateurs performants, fiables et adaptés à tous les budgets.</p>
+                <p>Découvrez les dernières technologies et optimisez votre expérience numérique avec <strong>NassTech</strong>.</p>
+            </article>
+        </section>
+
+        <section id="section3" class="mb-5">
+            <h3 class="text-primary text-center">Pourquoi choisir NassTech ?</h3>
+            <article class="bg-light p-4 rounded shadow">
+                <p>Chez <strong>NassTech</strong>, nous mettons l'accent sur la qualité et le service. Nous proposons une assistance personnalisée pour vous aider à choisir l'ordinateur qui vous convient le mieux. En plus de produits de qualité, vous bénéficiez de conseils d'experts pour un achat éclairé et d'un service après-vente réactif.</p>
+                <ul>
+                    <li>Une large sélection d'ordinateurs pour tous les besoins et budgets</li>
+                    <li>Des conseils d'experts pour vous aider dans votre choix</li>
+                    <li>Une garantie de satisfaction et un service client de qualité</li>
+                </ul>
+            </article>
+        </section>
+
+		<section id="section4" class="mb-5">
+		    <h3 class="text-primary text-center">Contactez-nous</h3>
+		    <article class="bg-light p-4 rounded shadow">
+		        <p>Vous avez une question ou besoin de conseils ? Remplissez ce formulaire et nous vous répondrons rapidement.</p>
+				<form th:action="@{/contact}" method="post">
+				    <div class="mb-3">
+				        <label for="nom" class="form-label">Nom</label>
+				        <input type="text" class="form-control" id="nom" name="nom" placeholder="Votre nom" required>
+				    </div>
+				    <div class="mb-3">
+				        <label for="email" class="form-label">Adresse email</label>
+				        <input type="email" class="form-control" id="email" name="email" placeholder="Votre email" required>
+				    </div>
+				    <div class="mb-3">
+				        <label for="message" class="form-label">Message</label>
+				        <textarea class="form-control" id="message" name="message" rows="4" placeholder="Votre message" required></textarea>
+				    </div>
+				    <button type="submit" class="btn btn-primary">Envoyer</button>
+				</form>
+		    </article>
+		</section>
+		<div th:if="${successMessage}" class="alert alert-success mt-3" role="alert" th:text="${successMessage}"></div>
+    </div>
+
+    <footer class="text-white text-center py-3 mt-auto bg-dark">
+        <p class="mb-0">&copy; 2025 NassTech - Tous droits réservés.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

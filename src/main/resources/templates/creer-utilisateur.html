@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+<head>
+	<title>Crée un compte</title>
+</head>	  
+<body>
+    <div layout:fragment="content" class="container my-5 d-flex justify-content-center">
+        <div class="card shadow-lg p-4" style="max-width: 500px; width: 100%;">
+            <h2 class="text-center text-primary mb-4">Créer un compte</h2>
+            <form action="/creer-compte-validation" method="POST">
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Nom utilisateur</label>
+                    <input type="text" id="username" name="login" class="form-control" placeholder="Entrez votre nom d'utilisateur" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="passwd" class="form-label">Mot de passe</label>
+                    <input type="password" id="passwd" name="password" class="form-control" placeholder="Entrez votre mot de passe" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="mail" class="form-label">Email</label>
+                    <input type="email" id="mail" name="mail" class="form-control" placeholder="Entrez votre email" required>
+                </div>
+				
+				<div class="mb-3">
+				    <label for="adresse" class="form-label">Adresse</label>
+				    <input type="text" id="adresse" name="adresse" class="form-control" placeholder="Entrez votre adresse" required>
+				</div>
+
+				<div class="form-check mb-2">
+				    <input type="checkbox" name="cgu" id="cgu" class="form-check-input" required>
+				    <label for="cgu" class="form-check-label">
+				        J’ai lu et j’accepte les 
+				        <a th:href="@{/cgu}" class="text-primary" target="_blank">Conditions Générales d’Utilisation (CGU)</a> 
+				        et les 
+				        <a th:href="@{/cgv}" class="text-primary" target="_blank">Conditions Générales de Vente (CGV)</a>.
+				    </label>
+				</div>
+
+
+                <div class="form-check mb-4">
+                    <input type="checkbox" name="perso" id="perso" class="form-check-input" required>
+                    <label for="perso" class="form-check-label">
+                        J'accepte que mes données soient conservées pour accéder aux services de NassTech.
+                    </label>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary w-100">S'inscrire</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

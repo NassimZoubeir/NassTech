@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+<head>
+	<title>Crée un ordinateur</title>
+</head>
+<body>
+    <div layout:fragment="content" class="container my-5 d-flex justify-content-center">
+        <div class="card shadow-lg" style="max-width: 500px; width: 100%;">
+            <div class="card-body">
+                <form method="POST" action="/creer-ordinateur-validation" enctype="multipart/form-data">
+                    
+                    <div class="mb-2">
+                        <label for="denomination" class="form-label">Dénomination :</label>
+                        <input type="text" id="denomination" name="denomination" class="form-control" required>
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="prix" class="form-label">Prix (€) :</label>
+                        <input type="number" id="prix" name="prix" class="form-control" step="0.01" required>
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="ecran" class="form-label">Taille de l'écran (pouces) :</label>
+                        <input type="number" id="ecran" name="ecran" class="form-control" step="0.1" required>
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="processeur" class="form-label">Processeur :</label>
+                        <input type="text" id="processeur" name="processeur" class="form-control" required>
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="vive" class="form-label">Mémoire vive (Go) :</label>
+                        <input type="number" id="vive" name="vive" class="form-control" required>
+                    </div>
+
+					<div class="mb-2">
+					    <label for="nombreOrdinateur" class="form-label">Nombre d'ordinateurs en stock :</label>
+					    <input type="number" id="nombreOrdinateur" name="nombreOrdinateur" class="form-control" required min="0">
+					</div>
+
+                    <div class="mb-2">
+                        <label for="image" class="form-label">Image :</label>
+                        <input type="file" id="image" name="image" class="form-control" accept="image/*">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="marqueId" class="form-label">Marque :</label>
+                        <select id="marqueId" name="marqueId" class="form-select" required>
+                            <option value="" disabled selected>Sélectionnez une marque</option>
+                            <option th:each="marque : ${marques}" th:value="${marque.id}" th:text="${marque.nom}"></option>
+                        </select>
+                    </div>
+
+                    <div class="text-center">
+                        <input type="submit" value="Ajouter" name="form_ajouter" class="btn btn-success px-4">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

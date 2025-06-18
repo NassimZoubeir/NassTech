@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+<head>
+    <title>Partie Administrateur</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div layout:fragment="content" class="container my-5">
+        
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand text-center mx-auto" href="#">Partie Administrateur</a>
+            </div>
+        </nav>
+            <div class="card mb-4 shadow">
+            <div class="card-header bg-primary text-white">
+                <h4>Utilisateurs</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Login</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="utilisateur : ${utilisateurs}">
+                            <td th:text="${utilisateur.id}"></td>
+                            <td th:text="${utilisateur.login}"></td>
+                            <td th:text="${utilisateur.email}"></td>
+                            <td th:text="${utilisateur.role}"></td>
+                            <td>
+                                <form th:action="@{/admin/supprimerUtilisateur/{id}(id=${utilisateur.id})}" method="post"  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card mb-4 shadow">
+            <div class="card-header bg-primary text-white">
+                <h4>Ordinateurs</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Dénomination</th>
+                            <th>Marque</th>
+                            <th>Prix</th>
+                            <th>Processeur</th>
+                            <th>Écran</th>
+                            <th>Vive</th>
+                            <th>Stock</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="ordinateur : ${ordinateurs}">
+                            <td th:text="${ordinateur.id}"></td>
+                            <td><img th:src="'/images/' + ${ordinateur.image}" class="img-thumbnail" style="width: 50px;"></td>
+                            <td th:text="${ordinateur.denomination}"></td>
+                            <td th:text="${ordinateur.marque.nom}"></td>
+                            <td th:text="${ordinateur.prix} + ' €'"></td>
+                            <td th:text="${ordinateur.processeur}"></td>
+                            <td th:text="${ordinateur.ecran} + '”'"></td>
+                            <td th:text="${ordinateur.vive} + ' Go'"></td>
+                            <td th:text="${ordinateur.nombreOrdinateur}"></td>
+                            <td>
+                                <form th:action="@{/admin/supprimerOrdinateur/{id}(id=${ordinateur.id})}" method="post"  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet ordinateur ?');">
+                                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                </form>
+								<form th:action="@{/admin/mettreAJourStock/{id}(id=${ordinateur.id})}" method="post">
+								    <label for="nombreOrdinateur">Modifier le stock :</label>
+								    <input type="number" name="nombreOrdinateur" required placeholder="Ex: +5 ou -3">
+								    <button type="submit" class="btn btn-primary">Mettre à jour</button>
+								</form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card mb-4 shadow">
+            <div class="card-header bg-primary text-white">
+                <h4>Marques</h4>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/admin/creerMarque}" method="post" class="mb-3">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <input type="text" id="nomMarque" name="nom" class="form-control" placeholder="Nom de la marque" required>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary w-100">Ajouter</button>
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="marque : ${marques}">
+                            <td th:text="${marque.id}"></td>
+                            <td th:text="${marque.nom}"></td>
+                            <td>
+                                <form th:action="@{/admin/supprimerMarque/{id}(id=${marque.id})}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette marque ?');">
+                                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
