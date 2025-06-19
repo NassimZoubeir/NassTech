@@ -20,16 +20,23 @@ public class VerificationToken {
 
     public VerificationToken() {}
 
-    public VerificationToken(String token, Utilisateur utilisateur) {
+    public VerificationToken(String token, Utilisateur utilisateur, String type) {
         this.token = token;
         this.utilisateur = utilisateur;
-        this.expirationDate = LocalDateTime.now().plusHours(24); // Jeton valide 24 heures
+        this.type = type;
+        
+        if ("RESET".equals(type)) {
+            this.expirationDate = LocalDateTime.now().plusHours(1);
+        } else if ("VERIFICATION".equals(type)) {
+            this.expirationDate = LocalDateTime.now().plusHours(24);
+        }
     }
 
     public boolean isExpired() {
         return LocalDateTime.now().isAfter(expirationDate);
     }
-
+    private String type; // "VERIFICATION" ou "RESET"
+    
     // Getters et setters
     public Long getId() {
         return id;
@@ -50,4 +57,11 @@ public class VerificationToken {
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
     }
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }

@@ -152,7 +152,6 @@ public class OrdinateurController {
 		     System.out.println("ordinateurCommanderListId=" + ordinateurCommanderListId);
 		     if (ordinateurCommanderListId != null) {
 		         ordinateurCommanderListId.remove(id);
-		         ordinateurService.incrementernombreOrdinateur(id);
 		         request.getSession().setAttribute("ordinateurCommanderListId", ordinateurCommanderListId);
 		         System.out.println("ordinateurCommanderListId=" + ordinateurCommanderListId);
 		     }

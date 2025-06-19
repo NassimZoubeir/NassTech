@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+<head>
+    <title>Réinitialiser le mot de passe</title>
+</head>
+<body>
+<div layout:fragment="content" class="container my-5 d-flex justify-content-center">
+    <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
+        <h3 class="text-center text-primary mb-4">Réinitialiser le mot de passe</h3>
+
+        <div th:if="${success}" class="alert alert-success text-center" th:text="${success}"></div>
+        <div th:if="${erreur}" class="alert alert-danger text-center" th:text="${erreur}"></div>
+
+		<form th:action="@{/reinitialiser-mot-de-passe}" method="post">
+		    <input type="hidden" name="token" th:value="${token}" />
+
+		    <div class="mb-3">
+		        <label for="password">Nouveau mot de passe</label>
+		        <input type="password" id="password" name="password" class="form-control" required />
+		    </div>
+
+		    <div class="mb-3">
+		        <label for="confirmation">Confirmation</label>
+		        <input type="password" id="confirmation" name="confirmation" class="form-control" required />
+		    </div>
+
+		    <div class="text-center">
+		        <button type="submit" class="btn btn-primary">Réinitialiser</button>
+		    </div>
+		</form>
+
+    </div>
+</div>
+</body>
+</html>

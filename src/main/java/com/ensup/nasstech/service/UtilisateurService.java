@@ -49,7 +49,7 @@ public  class UtilisateurService implements UtilisateurServiceItf {
 
 		// Générer un nouveau jeton
 		String token = UUID.randomUUID().toString();
-		VerificationToken verificationToken = new VerificationToken(token, utilisateur);
+		VerificationToken verificationToken = new VerificationToken(token, utilisateur,"VERIFICATION");
 		verificationTokenRepository.save(verificationToken);
 
 
@@ -63,16 +63,37 @@ public  class UtilisateurService implements UtilisateurServiceItf {
 	}
 	@Override
 	public boolean verifierEmail(String token) {
-	    var optionalToken = verificationTokenRepository.findByToken(token); // Utiliser l'instance injectée
+	    var optionalToken = verificationTokenRepository.findByToken(token);
 
-	    if (optionalToken.isPresent() && !optionalToken.get().isExpired()) {
+	    if (optionalToken.isPresent()
+	        && !optionalToken.get().isExpired()
+	        && "VERIFICATION".equals(optionalToken.get().getType())) {
+
 	        Utilisateur utilisateur = optionalToken.get().getUtilisateur();
 	        utilisateur.setVerified(true);
 	        utilisateurRepository.save(utilisateur);
+
+	        // Supprimer le token une fois utilisé
+	        verificationTokenRepository.delete(optionalToken.get());
+
 	        return true;
 	    }
+
 	    return false;
 	}
+
+	public void envoyerLienReinitialisation(Utilisateur utilisateur) {
+	    String token = UUID.randomUUID().toString();
+	    VerificationToken resetToken = new VerificationToken(token, utilisateur, "RESET");
+	    verificationTokenRepository.save(resetToken);
+
+	    String resetUrl = "http://localhost:8080/reinitialiser-mot-de-passe?token=" + token;
+	    String subject = "Réinitialisation de votre mot de passe - NassTech";
+	    String body = "Bonjour " + utilisateur.getLogin() + ",\n\nCliquez sur ce lien pour réinitialiser votre mot de passe :\n" + resetUrl;
+
+	    emailService.sendSimpleMessage(utilisateur.getEmail(), subject, body);
+	}
+
 	
 	@Override
 	public Utilisateur lireUtilisateurParLogin(String login) {

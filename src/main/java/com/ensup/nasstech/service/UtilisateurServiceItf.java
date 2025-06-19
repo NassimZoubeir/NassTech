@@ -14,4 +14,5 @@ public interface UtilisateurServiceItf {
 	Commande getCommandeById(Long id);
 	void majCommande(Commande commande);
 	boolean verifierEmail(String token);
+	void envoyerLienReinitialisation(Utilisateur utilisateur);
 }

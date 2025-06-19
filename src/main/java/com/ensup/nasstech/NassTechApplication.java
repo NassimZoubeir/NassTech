@@ -109,7 +109,7 @@ public class NassTechApplication {
 		String hashPassword;
 		Utilisateur utilisateur = null;
 		hashPassword = passwordEncoder.encode("nass");
-		utilisateur = new Utilisateur("nass", hashPassword, "nass@gmail.com", "utilisateur", "18 Avenue du Prado, 13008 Marseille");
+		utilisateur = new Utilisateur("nass", hashPassword, "nassimz@outlook.fr", "utilisateur", "18 Avenue du Prado, 13008 Marseille");
 		 utilisateur.setVerified(true);
 		utilisateurRepository.save(utilisateur);
 		
