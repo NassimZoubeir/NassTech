@@ -12,7 +12,6 @@ import com.ensup.nasstech.entity.Ordinateur;
 import com.ensup.nasstech.entity.Utilisateur;
 import com.ensup.nasstech.entity.VerificationToken;
 import com.ensup.nasstech.repository.CommandeRepository;
-import com.ensup.nasstech.repository.OrdinateurRepository;
 import com.ensup.nasstech.repository.UtilisateurRepository;
 import com.ensup.nasstech.repository.VerificationTokenRepository;
 
@@ -31,9 +30,6 @@ public  class UtilisateurService implements UtilisateurServiceItf {
     @Autowired
     private EmailServiceImpl emailService;
 	
-	@Autowired
-	private  OrdinateurRepository  ordinateurRepository;
-
 	@Autowired
 	private  OrdinateurServiceItf  ordinateurService;
 	
