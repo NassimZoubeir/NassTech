@@ -1,9 +1,7 @@
 package com.ensup.nasstech.controller;
 
-import java.security.NoSuchAlgorithmException;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,19 +10,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import jakarta.servlet.http.HttpServletRequest;
 import com.ensup.nasstech.entity.Utilisateur;
-import com.ensup.nasstech.entity.VerificationToken;
-import com.ensup.nasstech.outil.Outil;
 import com.ensup.nasstech.repository.UtilisateurRepository;
 import com.ensup.nasstech.repository.VerificationTokenRepository;
 import com.ensup.nasstech.service.UtilisateurServiceItf;
 
-import jakarta.servlet.http.HttpServletRequest;
 
+/**
+ * Contrôleur web gérant l'inscription, l'authentification et le profil utilisateur.
+ */
 @Controller
 public  class  UtilisateurController  {
 	
+	// Injecte les dépendances nécessaires
 	@Autowired
 	private UtilisateurServiceItf utilisateurService;
 	
@@ -37,10 +36,18 @@ public  class  UtilisateurController  {
 	@Autowired
 	 private PasswordEncoder passwordEncoder;
 
+	 /**
+     * Affiche la page de création de compte.
+     */
 	@GetMapping("/creer-compte")
 	public  String  creerUtilisateur()  {
 		return  "creer-utilisateur";
 	}
+	 /**
+     * Vérifie l'adresse email à partir du token reçu par email.
+     * @param token Token de vérification
+     * @param model Modèle pour afficher le message
+     */
 	@GetMapping("/verifier-email")
 	public String verifierEmail(@RequestParam String token, Model model) {
 	    System.out.println("Token reçu : " + token);
@@ -56,6 +63,9 @@ public  class  UtilisateurController  {
 	    return "verification";
 	}
 	
+	 /**
+     * Traite la validation du formulaire de création de compte.
+     */
 	@RequestMapping("/creer-compte-validation")
 	public String creerUtilisateurValidation(
 	        @RequestParam String login,
@@ -108,10 +118,16 @@ public  class  UtilisateurController  {
 	    return "login";
 	}
 
+	 /**
+     * Affiche la page de connexion.
+     */
 	@RequestMapping("/login")
-	public  String  login(Model  model)  {
-		return  "login";
+	public String login(Model model) {
+	    return "login";
 	}
+	 /**
+     * Traite la validation du formulaire de connexion.
+     */
 	@RequestMapping("/login-validation")
 	public String login(String login, String password, Model model, HttpServletRequest request) {
 	    System.out.println("==== login-validation ====");
@@ -143,6 +159,9 @@ public  class  UtilisateurController  {
 	    return "redirect:/profil";
 	}
 
+	 /**
+     * Déconnecte l'utilisateur.
+     */
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request) {
 		System.out.println("====  /logout  ====");
@@ -150,7 +169,9 @@ public  class  UtilisateurController  {
 		return "accueil";
 	 }
 	
-	
+	/**
+     * Affiche les informations du profil utilisateur.
+     */
 	@GetMapping("/profil")
 	public String afficherProfil(HttpServletRequest request, Model model) {
 	    Long idUtilisateur = (Long) request.getSession().getAttribute("id");
@@ -162,6 +183,9 @@ public  class  UtilisateurController  {
 	    model.addAttribute("utilisateur", utilisateur);
 	    return "profil"; 
 	}
+	 /**
+     * Met à jour le profil utilisateur avec un éventuel changement de mot de passe.
+     */
 	@PostMapping("/profil")
 	public String mettreAJourProfil(
 	        HttpServletRequest request,
@@ -216,10 +240,16 @@ public  class  UtilisateurController  {
 	    return "redirect:/profil";
 	}
 
+	 /**
+     * Affiche le formulaire "mot de passe oublié".
+     */
 	@GetMapping("/mot-de-passe-oublie")
 	public String afficherFormulaireMotDePasseOublie(Model model) {
 	    return "mot-de-passe-oublie";
 	}
+	/**
+     * Envoie un lien de réinitialisation si l'email est valide.
+     */
 	@PostMapping("/mot-de-passe-oublie")
 	public String traiterDemandeMotDePasseOublie(@RequestParam("email") String email, Model model) {
 	    Utilisateur utilisateur = utilisateurRepository.findByEmail(email);
@@ -234,6 +264,9 @@ public  class  UtilisateurController  {
 	    return "mot-de-passe-oublie";
 	}
 
+	 /**
+     * Affiche le formulaire pour réinitialiser le mot de passe.
+     */
 	@GetMapping("/reinitialiser-mot-de-passe")
 	public String afficherFormulaireReset(@RequestParam("token") String token, Model model) {
 	    var optionalToken = verificationtokenRepository.findByToken(token);
@@ -246,6 +279,9 @@ public  class  UtilisateurController  {
 	    model.addAttribute("token", token);
 	    return "reinitialiser-mot-de-passe";
 	}
+	 /**
+     * Traite le formulaire de réinitialisation de mot de passe.
+     */
 	@PostMapping("/reinitialiser-mot-de-passe")
 	public String traiterReset(@RequestParam("token") String token,
 	                           @RequestParam("password") String password,

@@ -9,37 +9,68 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+/**
+ * Représente un utilisateur de la plateforme NassTech.
+ * Un utilisateur peut passer des commandes d'ordinateurs.
+ */
 @Entity
 public class Utilisateur {
-	@Id
-	@GeneratedValue
-	private Long id;
-	private String login;
-	private String passwdHash;
-	private String email;
-	private String role;
-	private String adresse;
-	@OneToMany
-	private List<Commande> commanderOrdinateurList;
 	
-	private boolean verified = false;
+	  /** Identifiant unique de l'utilisateur. */
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    /** Nom d'utilisateur (login). */
+    private String login;
+
+    /** Hash du mot de passe. */
+    private String passwdHash;
+
+    /** Adresse email de l'utilisateur. */
+    private String email;
+
+    /** Rôle de l'utilisateur (ex: administrateur, utilisateur). */
+    private String role;
+
+    /** Adresse postale de l'utilisateur. */
+    private String adresse;
+
+    /** Liste des commandes associées à l'utilisateur. */
+    @OneToMany
+    private List<Commande> commanderOrdinateurList;
+
+    /** Indique si le compte est vérifié par email. */
+    private boolean verified = false;
+
+    /** Constructeur par défaut. */
+    public Utilisateur() {}
+
+    /**
+     * Constructeur principal.
+     * @param login Nom d'utilisateur
+     * @param passwdHash Mot de passe hashé
+     * @param email Adresse email
+     * @param role Rôle de l'utilisateur
+     * @param adresse Adresse postale
+     */
+    public Utilisateur(String login, String passwdHash, String email, String role, String adresse) {
+        this.login = login;
+        this.passwdHash = passwdHash;
+        this.email = email;
+        this.role = role;
+        this.adresse = adresse;
+        commanderOrdinateurList = new ArrayList<>();
+    }
+
+    /**
+     * Ajoute une commande à la liste de l'utilisateur.
+     * @param commande Commande à ajouter
+     */
+    public void ajouterCommande(Commande commande) {
+        commanderOrdinateurList.add(commande);
+    }
 	
-	public Utilisateur() {}
-	public Utilisateur(String login, String passwdHash, String email, String role, String adresse) {
-		this.login = login;
-		this.passwdHash = passwdHash;
-		this.email = email;
-		this.role = role;
-		this.adresse = adresse;
-		commanderOrdinateurList = new ArrayList<Commande>();
-	}
-	@Override
-	public String toString() {
-		return "Utilisateur [login=" + login + ", id=" + id + ", passwdHash=" + passwdHash + ", email=" + email + ", role=" + role +"]";
-	}
-	public void ajouterCommande(Commande commande) {
-	    commanderOrdinateurList.add(commande);
-	}
 	public String getLogin() {
 		return login;
 	}
